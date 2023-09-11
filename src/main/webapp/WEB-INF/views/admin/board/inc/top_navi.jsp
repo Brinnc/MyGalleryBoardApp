@@ -9,10 +9,10 @@
 		-->
 
 		<li class="nav-item d-none d-sm-inline-block"><a href="#"
-			onclick="loginForm()" class="nav-link">🧩Admin</a></li>
+			onclick="loginForm()" class="nav-link">🧰Sign out</a></li>
 
 		<li class="nav-item d-none d-sm-inline-block"><a href="#"
-			onclick="registForm()" class="nav-link">🖍️Write</a></li>
+			onclick="registForm()" class="nav-link">🪛Hello! This is the Admin Page</a></li>
 
 	</ul>
 
@@ -68,6 +68,6 @@
 	}
 	 
 	function registForm() {
-		location.href = "/board/registform";
+		//location.href = "/board/registform";
 	}
 </script>

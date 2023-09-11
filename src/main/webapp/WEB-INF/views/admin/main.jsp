@@ -259,7 +259,11 @@
     </nav>
     <!-- End Navbar -->
         
+    <!-- table list -->    
+        
+        
   </main>
+  
   <div class="fixed-plugin">
     <a class="fixed-plugin-button text-dark position-fixed px-3 py-2">
       <i class="material-icons py-2">settings</i>
@@ -333,6 +337,7 @@
       </div>
     </div>
   </div>
+  
   <!--   Core JS Files   -->
   <script src="/static/admin2/assets/js/core/popper.min.js"></script>
   <script src="/static/admin2/assets/js/core/bootstrap.min.js"></script>

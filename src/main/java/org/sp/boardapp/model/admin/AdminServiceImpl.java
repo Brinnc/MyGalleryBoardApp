@@ -23,4 +23,12 @@ public class AdminServiceImpl implements AdminService{
 		
 		return dto;
 	}
+	
+	@Override
+	public void signup(Admin admin) {
+		adminDAO.signup(admin);
+		
+	}
+	
+	
 }

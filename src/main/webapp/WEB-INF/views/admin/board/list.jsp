@@ -56,8 +56,9 @@ table td, table th {
 
 table thead tr {
 	height: 60px;
-	background: #71F9C7;
+	background: #e3356c;
 	font-size: 16px;
+	color: white;
 }
 
 table tbody tr {

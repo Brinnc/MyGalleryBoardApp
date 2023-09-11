@@ -74,6 +74,7 @@ public class BoardController {
 	// 글쓰기 요청 처리
 	@RequestMapping(value = "/board/regist", method = RequestMethod.POST)
 	public String regist(Board board, HttpServletRequest request) {
+		
 		// 3단계) DB(오라클)에 게시글 등록+파일 업로드
 		System.out.println("title = " + board.getTitle());
 		System.out.println("writer = " + board.getWriter());

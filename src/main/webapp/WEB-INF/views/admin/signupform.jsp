@@ -27,7 +27,7 @@
 	src="https://cpwebassets.codepen.io/assets/common/stopExecutionOnTimeout-2c7831bb44f98c1391d6a4ffda0e1fd302503391ca806e7fcc7b9b87197aec26.js"></script>
 
 
-<title>My Board - Admin Sign-in</title>
+<title>My Board - Sign Up</title>
 
 <link rel="canonical" href="https://codepen.io/chouaibblgn45/pen/zywPqy">
 <link href="https://fonts.googleapis.com/css?family=Montserrat:500,800"
@@ -50,7 +50,7 @@ body {
 }
 
 h1 {
-	color: #e91e63;
+	color: #71F9C7;
 	font-size: 48px;
 	letter-spacing: -3px;
 	text-align: center;
@@ -157,14 +157,13 @@ form .input__block input:focus, form .input__block input:active {
 }
 
 form .input__block input.repeat__password {
-	opacity: 0;
-	display: none;
+	
 	transition: 0.2s linear;
 }
 
-form .signin__btn {
-	background: #71F9C7;
-	color: gray;
+form .signup__btn {
+	background: #e91e63;
+	color: black;
 	display: block;
 	width: 92.5%;
 	max-width: 680px;
@@ -179,7 +178,7 @@ form .signin__btn {
 	transition: 0.2s linear;
 }
 
-form .signin__btn:hover {
+form .signup__btn:hover {
 	box-shadow: 0 0 0 rgba(233, 30, 99, 0);
 }
 
@@ -310,43 +309,42 @@ footer p a .fa-behance {
 <body translate="no">
 	<div class="container">
 		<!-- Heading -->
-		<h1>SIGN IN</h1>
+		<h1>SIGN UP</h1>
 
 		<!-- Links -->
 		<ul class="links">
-			<li><a href="#" id="signin">SIGN IN</a></li>
+			<!-- <li><a href="#" id="signin">SIGN IN</a></li> -->
 			<li><a href="#" id="signup">SIGN UP</a></li>
 			<li><a href="#" id="reset">RESET</a></li>
 		</ul>
 
 		<!-- Form -->
-		<form action="" method="post">
+		<form action="/admin/signup" method="post">
 			<!-- ID input -->
 			<div class="first-input input__block first-input__block">
-				<input type="text" name="id" placeholder="ID" class="input" id="ID" />
+				<input type="text" name="id" placeholder="ID" class="input" id="Your ID" />
 			</div>
 			<!-- password input -->
 			<div class="input__block">
-				<input type="password" name="pass" placeholder="Password"
+				<input type="password" name="pass" placeholder="Your Password"
 					class="input" id="password" />
 			</div>
-			
-			<!-- repeat password input 
+			<!-- repeat password input -->
 			<div class="input__block">
-				<input type="password" placeholder="Repeat password"
+				<input type="text" name="name" placeholder="Your Name"
 					class="input repeat__password" id="repeat__password" />
 			</div>
-			-->
 
-			<!-- sign in button -->
-			<button class="signin__btn" id="bt_login">Sign in</button>
+			<!-- sign up button -->
+			<button type="submit" class="signup__btn" id="bt_signup">Sign up</button>
 		</form>
 
 
-		<!-- separator -->
+		<!-- separator 
 		<div class="separator">
 			<p>OR</p>
-		</div>
+		</div> 
+		-->
 
 		<!-- google button
   			<button class="google__btn">
@@ -354,19 +352,20 @@ footer p a .fa-behance {
     				Sign in with Google
   			</button> -->
 
-		<!-- kakao button -->
+		<!-- kakao button 
 		<button class="kakao__btn" onclick="kakaoLogin();">
 			<i class="fa fa-kakao"></i> <a id="kakao" class="kakao"
 				href="https://kauth.kakao.com/oauth/authorize?client_id=4810cddbaf8672514af376f814d91cba&redirect_uri=http://localhost:7777/admin/board/list&response_type=code">
-				Sign in with Kakao 💬🍫 </a>
+				Sign in with Kakao </a>
 		</button>
+		-->
 
 
 	</div>
 
 	<footer>
 		<p>
-			Thank you for visiting <i class="fa fa-heart"></i> <i
+			Have a nice day <i class="fa fa-heart"></i> <i
 				class="fa fa-heart"></i> <i class="fa fa-heart"></i>
 		</p>
 
@@ -392,10 +391,12 @@ footer p a .fa-behance {
   -->
 	</footer>
 
-	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+	<!-- <script src="https://developers.kakao.com/sdk/js/kakao.js"></script> -->
 	<script
 		src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
 	<script id="rendered-js">
+	
+	<!--
 		//----------- kakao --------------------
 		function kakaoLogin() {
 
@@ -410,31 +411,36 @@ footer p a .fa-behance {
 			});
 
 		}
-
+	-->
+	
 		$(document).ready(
 				function() {
 					let signup = $(".links").find("li").find("#signup");
-					let signin = $(".links").find("li").find("#signin");
+					//let signin = $(".links").find("li").find("#signin");
 					let reset = $(".links").find("li").find("#reset");
 					let first_input = $("form").find(".first-input");
-					let hidden_input = $("form").find(".input__block").find(
-							"#repeat__password");
-					let signin_btn = $("form").find(".signin__btn");
+					//let hidden_input = $("form").find(".input__block").find(
+					//		"#repeat__password");
+					//let signin_btn = $("form").find(".signin__btn");
 
 					//----------- sign up ---------------------
 					
-					function getSignUp() {
-						window.open("http://localhost:7777/admin/signupform", "_blank", "width=500, height=1000", "top=500", "left=500");
+					function signUp() {
+						
+						//팝업창에서 부모창을 다른페이지로 이동합니다.
+						window.opener.location.href="/admin/loginform";
+						self.close();
+					
 				
 					}
 					
 					signup.on("click", function(e) {
 						
-						getSignUp();
+						signUp();
 						
 						e.preventDefault();
-						//$(this).parent().parent().siblings("h1")
-						//		.text("SIGN UP");
+						$(this).parent().parent().siblings("h1")
+								.text("SIGN UP");
 						$(this).parent().css("opacity", "1");
 						$(this).parent().siblings().css("opacity", ".6");
 						first_input.removeClass("first-input__block").addClass(
@@ -444,7 +450,7 @@ footer p a .fa-behance {
 							"display" : "block"
 						});
 
-						//signin_btn.text("Sign up");
+						signin_btn.text("Sign up");
 					});
 					
 

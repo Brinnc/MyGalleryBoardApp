@@ -5,5 +5,5 @@ import org.sp.boardapp.domain.Admin;
 public interface AdminService {
 	
 	public Admin login(Admin admin);
-
+	public void signup(Admin admin);
 }

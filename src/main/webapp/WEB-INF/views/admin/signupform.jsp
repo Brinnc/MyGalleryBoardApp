@@ -21,8 +21,6 @@
 	color="#111" />
 
 
-
-
 <script
 	src="https://cpwebassets.codepen.io/assets/common/stopExecutionOnTimeout-2c7831bb44f98c1391d6a4ffda0e1fd302503391ca806e7fcc7b9b87197aec26.js"></script>
 
@@ -56,6 +54,10 @@ h1 {
 	text-align: center;
 	margin: 120px 0 80px 0;
 	transition: 0.2s linear;
+}
+
+a:hover {
+  	text-decoration: underline;
 }
 
 .links {
@@ -103,6 +105,24 @@ form .input__block {
 	margin: 20px auto;
 	display: block;
 	position: relative;
+}
+
+form .input__check{
+	margin: 20px auto;
+	display: block;
+	position: relative;
+	text-align: center;
+	font-size: 14px;
+	font-family: "Montserrat", sans-serif;
+}
+
+form .input__radio{
+	margin: 20px auto;
+	display: block;
+	position: relative;
+	text-align: center;
+	font-size: 14px;
+	font-family: "Montserrat", sans-serif;
 }
 
 form .input__block.first-input__block::before {
@@ -157,7 +177,6 @@ form .input__block input:focus, form .input__block input:active {
 }
 
 form .input__block input.repeat__password {
-	
 	transition: 0.2s linear;
 }
 
@@ -301,9 +320,6 @@ footer p a .fa-behance {
 }
 </style>
 
-
-
-
 </head>
 
 <body translate="no">
@@ -319,26 +335,58 @@ footer p a .fa-behance {
 		</ul>
 
 		<!-- Form -->
-		<form action="/admin/signup" method="post">
+		<form action="/admin/signup" method="post" id="joinform">
+
 			<!-- ID input -->
 			<div class="first-input input__block first-input__block">
-				<input type="text" name="id" placeholder="ID" class="input" id="Your ID" />
+				<input type="text" name="id" placeholder="Your ID : The maximum length is 20 characters" class="input"
+					maxlength="20" id="id" />
 			</div>
+			
 			<!-- password input -->
 			<div class="input__block">
-				<input type="password" name="pass" placeholder="Your Password"
-					class="input" id="password" />
+				<input type="password" name="pass" placeholder="Your Password : The maximum length is 30 characters"
+					class="input" maxlength="30" id="password" />
 			</div>
-			<!-- repeat password input -->
+			<!-- repeat__password input -->
 			<div class="input__block">
-				<input type="text" name="name" placeholder="Your Name"
-					class="input repeat__password" id="repeat__password" />
+				<input type="password"
+					placeholder="Check Your Password" class="input repeat__password"
+					id="repeat__password" maxlength="30" />
+			</div>
+			
+			<!-- name input -->
+			<div class="input__block">
+				<input type="text" name="name" placeholder="Your Name" class="input"
+					id="name" />
+			</div>
+			
+			<!-- email input -->
+			<div class="input__block">
+				<input type="text" name="email"
+					placeholder="Your E-mail : MyBoard@gmail.com" class="input"
+					id="email" />
+			</div>
+			
+			<!-- Gender 
+			<div class="input__radio">
+				<input type="radio" name="gender"> Male
+				<input type="radio" name="gender"> Female
+				<input type="radio" name="gender"> N/A
+			</div>
+			-->
+
+			<!-- 약관 체크 -->
+			<div class="input__check">
+				<p><b>Membership Rules and Privacy Policy</b></p>
+				<input type="checkbox" name="agree" id="agree"> I agree to 
+				<a style="color: #e91e63" onclick="agree()">*Terms of Service👁️‍🗨️</a>
 			</div>
 
 			<!-- sign up button -->
-			<button type="submit" class="signup__btn" id="bt_signup">Sign up</button>
+			<button type="button" class="signup__btn" id="bt_signup" onClick="signupCheck()">Sign up</button>
+			<!-- button type="submit disabled="true" -->
 		</form>
-
 
 		<!-- separator 
 		<div class="separator">
@@ -359,42 +407,81 @@ footer p a .fa-behance {
 				Sign in with Kakao </a>
 		</button>
 		-->
-
-
+		
 	</div>
 
 	<footer>
 		<p>
-			Have a nice day <i class="fa fa-heart"></i> <i
-				class="fa fa-heart"></i> <i class="fa fa-heart"></i>
+			Have a nice day <i class="fa fa-heart"></i> <i class="fa fa-heart"></i>
+			<i class="fa fa-heart"></i>
 		</p>
-
-		<!--  
-  <p>
-    Chouaib Blgn :
-    <a href="https://www.facebook.com/chouaib45" >
-      <i class="fa fa-facebook"></i>
-    </a>
-    <a href="https://twitter.com/chouaibblgn45">
-      <i class="fa fa-twitter"></i> 
-    </a>
-    <a href="https://instagram.com/chouaib_blgn">
-      <i class="fa fa-instagram"></i> 
-    </a>
-    <a href="http://linkedin.com/in/chouaibblgn/">
-      <i class="fa fa-linkedin"></i>
-    </a>
-    <a href="https://www.behance.net/geek30">
-      <i class="fa fa-behance"></i>
-    </a>
-  </p>
-  -->
 	</footer>
 
 	<!-- <script src="https://developers.kakao.com/sdk/js/kakao.js"></script> -->
 	<script
 		src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
 	<script id="rendered-js">
+	
+	// 텍스트 공백 체크
+	function isEmpty(str) {
+		if (str == "" || str === null || str === "null") {
+			return true;
+		}
+		
+		return false;
+	}
+	
+	// !! 회원 가입 유효성 체크
+	function signupCheck() {
+		
+		
+		// 1) 공백 체크
+		let idVal = $("#id").val();
+		let passVal = $("#password").val();
+		let nameVal = $("#name").val() ;
+		let emailVal = $("#email").val();		
+		//let genderVar = $('input[name=gender]').is(":checked"); //genderVar==false
+		
+		if(isEmpty(idVal) || isEmpty(passVal) || isEmpty(nameVal) || isEmpty(emailVal)) {
+			alert("빈 칸을 모두 입력해주세요");
+			
+			return false;
+		}
+		
+		<!--
+		if($.trim($("#id").val())=='' || $.trim($("#password").val())=='' || $.trim($("#name").val())=='' || $.trim($("#email").val())==''){
+			alert("빈 칸을 모두 입력해주세요");
+		      
+			return false;
+		} 
+		-->
+		
+		// 2) 약관 체크여부
+		let agreeChecked=$('#agree').is(':checked');
+		console.log(agreeChecked);
+		
+		if(agreeChecked==true){ // 약관 동의 체크여부가 true일 경우 가입 폼 전송
+			//$("#bt_signup").disabled()==false;
+			alert("Congratulations on your registration🥳");
+			$("#joinform").submit();
+		}
+		
+	}
+	
+	function agree() {
+		window. open('agree.do', '약관', 'width=700px,height=500px,scrollbars=yes');
+	}
+	
+
+	function signUp() {
+
+						//팝업창에서 부모창을 다른페이지로 이동합니다.
+						//window.opener.location.href = "/admin/loginform";
+						//self.close();
+						
+	$("#joinform").submit();
+
+	}
 	
 	<!--
 		//----------- kakao --------------------
@@ -411,33 +498,34 @@ footer p a .fa-behance {
 			});
 
 		}
-	-->
-	
-		$(document).ready(
-				function() {
-					let signup = $(".links").find("li").find("#signup");
-					//let signin = $(".links").find("li").find("#signin");
-					let reset = $(".links").find("li").find("#reset");
-					let first_input = $("form").find(".first-input");
-					//let hidden_input = $("form").find(".input__block").find(
-					//		"#repeat__password");
-					//let signin_btn = $("form").find(".signin__btn");
+		-->
+
+		$(document).ready(function() {
+			
+			let signup = $(".links").find("li").find("#signup");
+			//let signin = $(".links").find("li").find("#signin");
+			let reset = $(".links").find("li").find("#reset");
+			let first_input = $("form").find(".first-input");
+			//let hidden_input = $("form").find(".input__block").find(
+			//		"#repeat__password");
+			//let signin_btn = $("form").find(".signin__btn");
 
 					//----------- sign up ---------------------
+
+					//signupCheck();
 					
-					function signUp() {
-						
-						//팝업창에서 부모창을 다른페이지로 이동합니다.
-						window.opener.location.href="/admin/loginform";
-						self.close();
-					
-				
-					}
-					
+
 					signup.on("click", function(e) {
 						
-						signUp();
-						
+						 if($.trim($("#id").val())==''){
+						      alert("ID를 입력해");
+						      
+						      return false;
+						} 
+						//$("#joinform").submit();
+
+						//signUp();
+
 						e.preventDefault();
 						$(this).parent().parent().siblings("h1")
 								.text("SIGN UP");
@@ -450,42 +538,41 @@ footer p a .fa-behance {
 							"display" : "block"
 						});
 
-						signin_btn.text("Sign up");
+						//signin_btn.text("Sign up");
 					});
-					
 
 					//----------- sign in ---------------------
 
-					function loginCheck() {
-						$("form").attr({
-							action : "/admin/login",
-							method : "post"
-						});
-						$("form").submit();
-					}
+					//function loginCheck() {
+					//	$("form").attr({
+					//		action : "/admin/login",
+					//		method : "post"
+					//	});
+					//	$("form").submit();
+					//}
 
-					$("#bt_login").click(function() {
-						loginCheck();
-					});
+					//$("#bt_login").click(function() {
+					//	loginCheck();
+					//});
 
-					signin.on("click", function(e) {
+					//signin.on("click", function(e) {
 
 						//loginCheck();
 
-						e.preventDefault();
-						$(this).parent().parent().siblings("h1")
-								.text("SIGN IN");
-						$(this).parent().css("opacity", "1");
-						$(this).parent().siblings().css("opacity", ".6");
-						first_input.addClass("first-input__block").removeClass(
-								"signup-input__block");
-						hidden_input.css({
-							"opacity" : "0",
-							"display" : "none"
-						});
+						//e.preventDefault();
+						//$(this).parent().parent().siblings("h1")
+						//		.text("SIGN IN");
+						//$(this).parent().css("opacity", "1");
+						//$(this).parent().siblings().css("opacity", ".6");
+						//first_input.addClass("first-input__block").removeClass(
+						//		"signup-input__block");
+						//hidden_input.css({
+						//	"opacity" : "0",
+						//	"display" : "none"
+						//});
 
-						signin_btn.text("Sign in");
-					});
+						//signin_btn.text("Sign in");
+					//});
 
 					//----------- kakao ---------------------
 					var kakaoInfo = '${kakaoInfo}';

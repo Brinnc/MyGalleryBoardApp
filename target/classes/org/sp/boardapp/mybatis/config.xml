@@ -8,6 +8,7 @@
 		<typeAlias type="org.sp.boardapp.domain.Board" alias="Board" />
 		<typeAlias type="org.sp.boardapp.domain.BoardImg" alias="BoardImg" />
 		<typeAlias type="org.sp.boardapp.domain.Admin" alias="Admin" />
+		<typeAlias type="org.sp.boardapp.domain.Member" alias="Member" />
 	</typeAliases>
 
 	<!-- 

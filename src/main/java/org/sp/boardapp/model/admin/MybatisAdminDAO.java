@@ -3,6 +3,7 @@ package org.sp.boardapp.model.admin;
 import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.sp.boardapp.domain.Admin;
+import org.sp.boardapp.domain.Member;
 import org.sp.boardapp.mybatis.MybatisConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -14,9 +15,9 @@ public class MybatisAdminDAO implements AdminDAO{
 	private SqlSessionTemplate sqlSessionTemplate;
 	
 	@Override
-	public Admin login(Admin admin) {
+	public Member login(Member member) {
 		//SqlSession sqlSession=mybatisConfig.getSqlSession();
-		Admin dto=sqlSessionTemplate.selectOne("Admin.login", admin);
+		Member dto=sqlSessionTemplate.selectOne("Admin.login", member);
 		
 		//mybatisConfig.release(sqlSession);
 		
@@ -24,9 +25,10 @@ public class MybatisAdminDAO implements AdminDAO{
 	}
 	
 	@Override
-	public void signup(Admin admin) {
-		int result=sqlSessionTemplate.insert("Admin.signup", admin);
+	public void signup(Member member) {
+		int result=sqlSessionTemplate.insert("Admin.signup", member);
 		
 	}
 
 }
+

@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.sp.boardapp.domain.Admin;
+import org.sp.boardapp.domain.Member;
 import org.sp.boardapp.exception.AdminException;
 import org.sp.boardapp.model.admin.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,9 +41,9 @@ public class AdminController {
 	
 	// 회원 가입 요청 처리
 	@PostMapping("/signup")
-	public String signUp(Admin admin, HttpServletRequest request) {
+	public String signUp(Member member, HttpServletRequest request) {
 		
-		adminService.signup(admin);
+		adminService.signup(member);
 		
 		return "redirect:/admin/loginform";
 	}
@@ -57,16 +58,16 @@ public class AdminController {
 
 	// 로그인 요청 처리
 	@PostMapping("/login")
-	public ModelAndView login(Admin admin, HttpServletRequest request) {
+	public ModelAndView login(Member member, HttpServletRequest request) {
 		// 3단계) 일치하는 계정 정보가 있는지 조회
-		Admin dto = adminService.login(admin);
+		Member dto = adminService.login(member);
 
 		// 4단계) 일치하는 정보가 있다면, 세션에 DTO를 담아 서비스
 		HttpSession session = request.getSession();
-		session.setAttribute("admin", dto);
+		session.setAttribute("member", dto);
 
 		// ModelAndView mav=new ModelAndView("admin/index"); //포워딩 시
-		ModelAndView mav = new ModelAndView("redirect:/admin/main"); // redirect 시
+		ModelAndView mav = new ModelAndView("redirect:/board/list"); // redirect 시
 
 		return mav;
 	}

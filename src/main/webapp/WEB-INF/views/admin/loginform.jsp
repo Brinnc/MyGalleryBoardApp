@@ -424,8 +424,8 @@ footer p a .fa-behance {
 					//----------- sign up ---------------------
 					
 					function getSignUp() {
-						window.open("http://localhost:7777/admin/signupform", "_blank", "width=500, height=1000", "top=500", "left=500");
-				
+						//window.open("http://localhost:7777/admin/signupform", "_blank", "width=500, height=1000", "top=500", "left=500");
+						location.href = "/admin/signupform";
 					}
 					
 					signup.on("click", function(e) {

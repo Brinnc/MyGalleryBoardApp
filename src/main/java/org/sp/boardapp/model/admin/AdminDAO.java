@@ -1,10 +1,11 @@
 package org.sp.boardapp.model.admin;
 
 import org.sp.boardapp.domain.Admin;
+import org.sp.boardapp.domain.Member;
 
 public interface AdminDAO {
 	
-	public Admin login(Admin admin);
-	public void signup(Admin admin);
+	public Member login(Member member);
+	public void signup(Member member);
 
 }

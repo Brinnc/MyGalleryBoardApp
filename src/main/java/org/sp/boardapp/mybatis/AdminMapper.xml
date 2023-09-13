@@ -3,13 +3,19 @@
 <mapper namespace="Admin">
 
 	<!-- 로그인 체크 -->
-	<select id="login" parameterType="Admin" resultType="Admin">
-		select * from admin
+	<select id="login" parameterType="Member" resultType="Member">
+		select * from member
 		where id=#{id} and pass=#{pass}
 	</select>
 	
-	<!-- 회원 가입 -->
-	<insert id="signup" parameterType="Admin">
+	<!-- 회원 가입(회원) -->
+	<insert id="signup" parameterType="Member">
+		insert into member(member_idx, id, pass, name, email)
+		values(seq_member.nextval, #{id}, #{pass}, #{name}, #{email})
+	</insert>
+	
+	<!-- 회원 가입(어드민) -->
+	<insert id="addAdmin" parameterType="Admin">
 		insert into admin(admin_idx, id, pass, name)
 		values(seq_admin.nextval, #{id}, #{pass}, #{name})
 	</insert>

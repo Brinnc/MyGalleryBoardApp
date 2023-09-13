@@ -1,6 +1,7 @@
 package org.sp.boardapp.model.admin;
 
 import org.sp.boardapp.domain.Admin;
+import org.sp.boardapp.domain.Member;
 import org.sp.boardapp.exception.AdminException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,9 +13,9 @@ public class AdminServiceImpl implements AdminService{
 	private AdminDAO adminDAO;
 
 	@Override
-	public Admin login(Admin admin) throws AdminException{
+	public Member login(Member member) throws AdminException{
 		
-		Admin dto=adminDAO.login(admin);
+		Member dto=adminDAO.login(member);
 		
 		//로그인 실패 시 예외처리
 		if(dto==null) {
@@ -25,10 +26,9 @@ public class AdminServiceImpl implements AdminService{
 	}
 	
 	@Override
-	public void signup(Admin admin) {
-		adminDAO.signup(admin);
+	public void signup(Member member) {
+		adminDAO.signup(member);
 		
 	}
-	
 	
 }

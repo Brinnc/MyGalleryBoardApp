@@ -31,4 +31,16 @@ public class AdminServiceImpl implements AdminService{
 		
 	}
 	
+	@Override
+	public Member findID(Member member) throws AdminException{
+		Member dto=adminDAO.findID(member);
+		
+		//아이디찾기 실패 시 예외처리
+		if(dto==null) {
+			throw new AdminException("⚠️ 회원 정보를 다시 확인해주세요 ! ⚠️");
+		}
+		
+		return dto;
+	}
+	
 }

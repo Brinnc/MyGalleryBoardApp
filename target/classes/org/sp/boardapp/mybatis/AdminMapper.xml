@@ -19,5 +19,11 @@
 		insert into admin(admin_idx, id, pass, name)
 		values(seq_admin.nextval, #{id}, #{pass}, #{name})
 	</insert>
+	
+	<!-- 회원 ID 찾기 -->
+	<select id="findID" parameterType="Member" resultType="Member">
+		select id from member
+		where name=#{name} and email=#{email}
+	</select>
 
 </mapper>

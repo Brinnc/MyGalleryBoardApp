@@ -1,12 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-
+<%@page import="org.sp.boardapp.domain.Member"%>
+<%@ page contentType="text/html; charset=UTF-8"%>
+<%
+	Member member=(Member)session.getAttribute("member");
+%>
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
 <meta charset="UTF-8">
-
 
 <link rel="apple-touch-icon" type="image/png"
 	href="https://cpwebassets.codepen.io/assets/favicon/apple-touch-icon-5ae1a0698dcc2402e9712f7d01ed509a57814f994c660df9f7a952f3060705ee.png" />
@@ -20,14 +20,9 @@
 	href="https://cpwebassets.codepen.io/assets/favicon/logo-pin-b4b4269c16397ad2f0f7a01bcdf513a1994f4c94b8af2f191c09eb0d601762b1.svg"
 	color="#111" />
 
-
-
-
 <script
 	src="https://cpwebassets.codepen.io/assets/common/stopExecutionOnTimeout-2c7831bb44f98c1391d6a4ffda0e1fd302503391ca806e7fcc7b9b87197aec26.js"></script>
-
-
-<title>My Board - Admin Sign-in</title>
+<title>Insert title here</title>
 
 <link rel="canonical" href="https://codepen.io/chouaibblgn45/pen/zywPqy">
 <link href="https://fonts.googleapis.com/css?family=Montserrat:500,800"
@@ -50,12 +45,16 @@ body {
 }
 
 h1 {
-	color: #e91e63;
+	color: #82797c;
 	font-size: 48px;
 	letter-spacing: -3px;
 	text-align: center;
 	margin: 120px 0 80px 0;
 	transition: 0.2s linear;
+}
+
+#top{
+	font-size: 100px;
 }
 
 .links {
@@ -163,8 +162,8 @@ form .input__block input.repeat__password {
 }
 
 form .signin__btn {
-	background: #71F9C7;
-	color: gray;
+	background: #82797c;
+	color: white;
 	display: block;
 	width: 92.5%;
 	max-width: 680px;
@@ -175,7 +174,7 @@ form .signin__btn {
 	cursor: pointer;
 	font-size: 14px;
 	font-family: "Montserrat", sans-serif;
-	box-shadow: 0 15px 30px rgba(233, 30, 99, 0.36);
+	box-shadow: 0 15px 30px rgba(237, 206, 215, 0.36);
 	transition: 0.2s linear;
 }
 
@@ -302,36 +301,31 @@ footer p a .fa-behance {
 }
 </style>
 
-
-
-
 </head>
 
 <body translate="no">
 	<div class="container">
 		<!-- Heading -->
-		<h1>SIGN IN</h1>
+		<h1>Your ID is . . .</h1>
 
-		<!-- Links -->
+		<!-- Links --> 
 		<ul class="links">
-			<li><a href="#" id="signin">SIGN IN</a></li>
-			<li><a href="#" id="signup">SIGN UP</a></li>
-			<li><a href="#" id="reset">RESET</a></li>
-			<li><a href="#" id="forget" onClick="searchID()">Forget ID</a></li>
-		</ul>
+			<li><div id=top>🤗</div></li>
+		
+		</ul> 
 
 		<!-- Form -->
-		<form action="" method="post">
-			<!-- ID input -->
+		<form>
+			<!-- Name input -->
 			<div class="first-input input__block first-input__block">
-				<input type="text" name="id" placeholder="ID" class="input" id="ID" />
+				<input type="text" readonly placeholder="Your ID : <%=member.getId() %>" class="input" />
 			</div>
-			<!-- password input -->
+			<!-- password input
 			<div class="input__block">
-				<input type="password" name="pass" placeholder="Password"
-					class="input" id="password" />
-			</div>
-			
+				<input type="text" name="email" placeholder="Your Email@MyBoard.com"
+					class="input" id="me_email" />
+			</div>  -->
+
 			<!-- repeat password input 
 			<div class="input__block">
 				<input type="password" placeholder="Repeat password"
@@ -339,15 +333,15 @@ footer p a .fa-behance {
 			</div>
 			-->
 
-			<!-- sign in button -->
-			<button class="signin__btn" id="bt_login">Sign in</button>
+			<!-- resetPW button -->
+			<button class="signin__btn" id="bt_resetPW">Reset your PW</button>
 		</form>
 
 
-		<!-- separator -->
+		<!-- separator 
 		<div class="separator">
 			<p>OR</p>
-		</div>
+		</div> -->
 
 		<!-- google button
   			<button class="google__btn">
@@ -355,19 +349,19 @@ footer p a .fa-behance {
     				Sign in with Google
   			</button> -->
 
-		<!-- kakao button -->
+		<!-- kakao button 
 		<button class="kakao__btn" onclick="kakaoLogin();">
 			<i class="fa fa-kakao"></i> <a id="kakao" class="kakao"
 				href="https://kauth.kakao.com/oauth/authorize?client_id=4810cddbaf8672514af376f814d91cba&redirect_uri=http://localhost:7777/admin/board/list&response_type=code">
 				Sign in with Kakao 💬🍫 </a>
-		</button>
+		</button> -->
 
 
 	</div>
 
 	<footer>
 		<p>
-			Thank you for visiting <i class="fa fa-heart"></i> <i
+			 <i class="fa fa-heart"></i> <i
 				class="fa fa-heart"></i> <i class="fa fa-heart"></i>
 		</p>
 
@@ -397,25 +391,13 @@ footer p a .fa-behance {
 	<script
 		src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
 	<script id="rendered-js">
-		//----------- kakao --------------------
-		function searchID(){
-			window.open("http://localhost:7777/admin/forgetform", "_blank", "width=500, height=1000", "top=500", "left=500");
-		}
-		
-		function kakaoLogin() {
+		$("#bt_resetPW").click(function() {
 
-			$.ajax({
-				url : '/login/getKakaoAuthUrl',
-				type : 'get',
-				async : false,
-				dataType : 'text',
-				success : function(res) {
-					location.href = res;
-				}
-			});
-
-		}
-
+				alert("비밀번호재설정예정");
+				//location.href = "/admin/loginform";
+		});
+					
+					
 		$(document).ready(
 				function() {
 					let signup = $(".links").find("li").find("#signup");
@@ -426,85 +408,6 @@ footer p a .fa-behance {
 							"#repeat__password");
 					let signin_btn = $("form").find(".signin__btn");
 
-					//----------- sign up ---------------------
-					
-					
-					function getSignUp() {
-						//window.open("http://localhost:7777/admin/signupform", "_blank", "width=500, height=1000", "top=500", "left=500");
-						location.href = "/admin/signupform";
-					}
-					
-					signup.on("click", function(e) {
-						
-						getSignUp();
-						
-						e.preventDefault();
-						//$(this).parent().parent().siblings("h1")
-						//		.text("SIGN UP");
-						$(this).parent().css("opacity", "1");
-						$(this).parent().siblings().css("opacity", ".6");
-						first_input.removeClass("first-input__block").addClass(
-								"signup-input__block");
-						hidden_input.css({
-							"opacity" : "1",
-							"display" : "block"
-						});
-
-						//signin_btn.text("Sign up");
-					});
-					
-
-					//----------- sign in ---------------------
-
-					function loginCheck() {
-						$("form").attr({
-							action : "/admin/login",
-							method : "post"
-						});
-						$("form").submit();
-					}
-
-					$("#bt_login").click(function() {
-						loginCheck();
-					});
-
-					signin.on("click", function(e) {
-
-						//loginCheck();
-
-						e.preventDefault();
-						$(this).parent().parent().siblings("h1")
-								.text("SIGN IN");
-						$(this).parent().css("opacity", "1");
-						$(this).parent().siblings().css("opacity", ".6");
-						first_input.addClass("first-input__block").removeClass(
-								"signup-input__block");
-						hidden_input.css({
-							"opacity" : "0",
-							"display" : "none"
-						});
-
-						signin_btn.text("Sign in");
-					});
-
-					//----------- kakao ---------------------
-					var kakaoInfo = '${kakaoInfo}';
-
-					if (kakaoInfo != "") {
-						var data = JSON.parse(kakaoInfo);
-
-						alert("카카오로그인 성공 \n accessToken : "
-								+ data['accessToken']);
-						alert("user : \n" + "email : " + data['email']
-								+ "\n nickname : " + data['nickname']);
-					}
-
-					//----------- reset ---------------------
-					reset.on("click", function(e) {
-						e.preventDefault();
-						$(this).parent().parent().siblings("form").find(
-								".input__block").find(".input").val("");
-					});
 				});
 		//# sourceURL=pen.js
 	</script>

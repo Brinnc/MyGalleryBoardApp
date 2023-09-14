@@ -29,6 +29,13 @@ public class MybatisAdminDAO implements AdminDAO{
 		int result=sqlSessionTemplate.insert("Admin.signup", member);
 		
 	}
+	
+	@Override
+	public Member findID(Member member) {
+		Member dto=sqlSessionTemplate.selectOne("Admin.findID", member);
+		
+		return dto;
+	}
 
 }
 

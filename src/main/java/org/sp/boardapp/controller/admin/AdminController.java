@@ -31,10 +31,44 @@ public class AdminController {
 		return mav;
 	}
 	
+	// ID찾기 폼 요청
+	@GetMapping("/forgetform")
+	public ModelAndView forgetform() {
+		ModelAndView mav=new ModelAndView("admin/forgetform");
+		
+		return mav;
+	}
+	
+	// ID 확인 페이지 요청
+	@PostMapping("/findID")
+	public ModelAndView Find(Member member, HttpServletRequest request) {
+		//ModelAndView mav=new ModelAndView("admin/findID");
+		
+		// 3단계) 일치하는 계정 정보가 있는지 조회
+		Member dto = adminService.findID(member);
+
+		// 4단계) 일치하는 정보가 있다면, 세션에 DTO를 담아 서비스
+		HttpSession session = request.getSession();
+		session.setAttribute("member", dto);
+
+		// ModelAndView mav=new ModelAndView("admin/index"); //포워딩 시
+		ModelAndView mav=new ModelAndView("admin/findID"); // redirect 시
+		
+		return mav;
+	}
+	
 	// 회원 가입 폼 요청
 	@GetMapping("/signupform")
 	public ModelAndView signupform() {
 		ModelAndView mav=new ModelAndView("admin/signupform");
+		
+		return mav;
+	}
+	
+	// 회원 가입 약관 페이지 요청
+	@GetMapping("/agree")
+	public ModelAndView getAgree() {
+		ModelAndView mav=new ModelAndView("admin/agree");
 		
 		return mav;
 	}

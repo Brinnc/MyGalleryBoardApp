@@ -7,4 +7,5 @@ public interface AdminService {
 	
 	public Member login(Member member);
 	public void signup(Member member);
+	public Member findID(Member member);
 }
